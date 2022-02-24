@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+  font-size: 8px;
+}
+
+.App-nav {
+  padding: 1rem;
+}
+
+.App-title {
+  margin-bottom: 0.6rem;
+}
+
+button {
+  font-size: calc(10px + 2vmin);
+}
