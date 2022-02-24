@@ -1,33 +1,32 @@
-import { useEffect } from 'react';
-import { getUser, setUser } from './context/userContext'
-import './App.css'
-import Login from './components/Login';
-import Todos from './components/Todos';
+import { useState } from "react";
+import "./App.css";
+import Login from "./components/Login";
+import Todos from "./components/Todos";
 
-function App() {
-  const user = getUser()
+const App = () => {
+  const [user, setUser] = useState(
+    localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null
+  );
 
-  useEffect(() => {
-    const user = localStorage.getItem('user')
-    if (user) {
-      setUser(JSON.parse(user))
-    }
-  }, [])
+  const logOut = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
 
   return (
     <div className="App">
       <nav className="App-nav">
         <h4 className="App-title">Todo Management App</h4>
-        { user && <p>Welcome { user }</p> }
+        {user && <p>Welcome {user.userName}</p>}
+        <span className="logoutBtn" onClick={logOut}>
+          Logout
+        </span>
       </nav>
-      <div>
-        { user ? <Todos /> : <Login /> }
-      </div>
+      {user ? <Todos user={user} /> : <Login setUser={setUser} />}
     </div>
-  )
-}
+  );
+};
 
-export default App
-
-// login page
-// todos page
+export default App;
